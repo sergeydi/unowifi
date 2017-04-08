@@ -1,14 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gMo-Sy-Izt">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ArduinoUnoWifi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +20,216 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="l" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfR-Ze-nve">
+                                <rect key="frame" x="187.5" y="323.5" width="0.0" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TVX-hB-cxK">
+                                <rect key="frame" x="188.5" y="72" width="178.5" height="587"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iie-x8-Dwy" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dNi-ct-xwD" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="42" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YCl-qI-GDE" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="84" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Thv-iA-gBB" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="126" width="178.5" height="41.5"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VHU-p2-WcR" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="167.5" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hAj-3o-gQb" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="209.5" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cab-jg-1Ss" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="251.5" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qvt-fC-jp6" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="293.5" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6K-Du-ePZ" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="335.5" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ST-Hi-CTP" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="377.5" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0r-bi-mAb" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="419.5" width="178.5" height="41.5"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AG2-jO-5iA" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="461" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96l-WU-GQz" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="503" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zxz-UU-Sa6" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="545" width="178.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="m0L-nj-iS1">
+                                <rect key="frame" x="8" y="72" width="170.5" height="587"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cnd-yO-YiA" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UB8-hJ-Wyj" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="42" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lho-LQ-d9d" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="84" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFl-Np-GBG" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="126" width="170.5" height="41.5"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CfB-Wa-3jB" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="167.5" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hvg-BK-p4Q" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="209.5" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T3Z-hm-A9s" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="251.5" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZQV-lT-Wpi" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="293.5" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IvP-Ff-XGo" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="335.5" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0R-ve-X2P" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="377.5" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGH-AP-DC5" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="419.5" width="170.5" height="41.5"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OUC-es-Vd4" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="461" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jaz-PO-FR5" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="503" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DTG-5E-keb" customClass="PinView" customModule="ArduinoUnoWifi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="545" width="170.5" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="QfR-Ze-nve" firstAttribute="leading" secondItem="m0L-nj-iS1" secondAttribute="trailing" constant="9" id="9J6-0A-b1A"/>
+                            <constraint firstItem="QfR-Ze-nve" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EEv-pn-2hZ"/>
+                            <constraint firstAttribute="bottom" secondItem="m0L-nj-iS1" secondAttribute="bottom" constant="8" id="FEg-op-ptf"/>
+                            <constraint firstItem="QfR-Ze-nve" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Thm-bq-s5u"/>
+                            <constraint firstItem="TVX-hB-cxK" firstAttribute="leading" secondItem="QfR-Ze-nve" secondAttribute="trailing" constant="1" id="YMK-gi-0kW"/>
+                            <constraint firstItem="m0L-nj-iS1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="hdM-O3-yaB"/>
+                            <constraint firstItem="TVX-hB-cxK" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="k2f-ne-aMt"/>
+                            <constraint firstAttribute="trailing" secondItem="TVX-hB-cxK" secondAttribute="trailing" constant="8" id="oc9-p8-Qmm"/>
+                            <constraint firstAttribute="bottom" secondItem="TVX-hB-cxK" secondAttribute="bottom" constant="8" id="u3E-K7-Ptm"/>
+                            <constraint firstItem="m0L-nj-iS1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="w8m-NR-HeK"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="X5a-Rx-dWy">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="ftv-dc-OE1">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="eAS-ki-fW5">
+                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Pins"/>
+                                <segment title="Console"/>
+                            </segments>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="CrX-0I-DJF">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="pin0view" destination="Zxz-UU-Sa6" id="fip-QH-6HO"/>
+                        <outlet property="pin10view" destination="Thv-iA-gBB" id="BmM-sU-F68"/>
+                        <outlet property="pin11view" destination="YCl-qI-GDE" id="BmY-sc-dVq"/>
+                        <outlet property="pin12view" destination="dNi-ct-xwD" id="aOO-Dg-skQ"/>
+                        <outlet property="pin13view" destination="iie-x8-Dwy" id="3cE-0R-Ebc"/>
+                        <outlet property="pin1view" destination="96l-WU-GQz" id="SVO-Zy-qXb"/>
+                        <outlet property="pin2view" destination="AG2-jO-5iA" id="g5k-7u-5Nj"/>
+                        <outlet property="pin33Vview" destination="hvg-BK-p4Q" id="veY-mI-eqQ"/>
+                        <outlet property="pin3view" destination="T0r-bi-mAb" id="xg2-Nb-IQ4"/>
+                        <outlet property="pin4view" destination="8ST-Hi-CTP" id="e88-7a-Ufe"/>
+                        <outlet property="pin5Vview" destination="T3Z-hm-A9s" id="FKf-91-3im"/>
+                        <outlet property="pin5view" destination="G6K-Du-ePZ" id="e7K-NX-DBN"/>
+                        <outlet property="pin6view" destination="Qvt-fC-jp6" id="Vdp-uJ-J3l"/>
+                        <outlet property="pin7view" destination="cab-jg-1Ss" id="nQl-Jo-e8w"/>
+                        <outlet property="pin8view" destination="hAj-3o-gQb" id="RAz-WK-JGK"/>
+                        <outlet property="pin9view" destination="VHU-p2-WcR" id="1h5-11-as8"/>
+                        <outlet property="pinA0view" destination="IvP-Ff-XGo" id="3q7-MM-InF"/>
+                        <outlet property="pinA1view" destination="f0R-ve-X2P" id="Udj-yJ-zmd"/>
+                        <outlet property="pinA2view" destination="zGH-AP-DC5" id="Qy0-eX-Bga"/>
+                        <outlet property="pinA3view" destination="OUC-es-Vd4" id="5Qg-aX-55d"/>
+                        <outlet property="pinA4view" destination="jaz-PO-FR5" id="InZ-Hd-N3g"/>
+                        <outlet property="pinA5view" destination="DTG-5E-keb" id="pNl-qc-HHs"/>
+                        <outlet property="pinResetview" destination="CfB-Wa-3jB" id="PWR-ay-2OH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1076" y="138.98050974512745"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="D1N-pg-Sy8">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gMo-Sy-Izt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="97J-bm-dIh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.57268869876861572" blue="0.62406677007675171" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="G7H-61-Gm2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zqg-UQ-g3i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="303" y="139"/>
         </scene>
     </scenes>
 </document>

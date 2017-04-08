@@ -12,6 +12,7 @@
 		E282A9251E98219100BFAC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E282A9231E98219100BFAC57 /* Main.storyboard */; };
 		E282A9271E98219100BFAC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E282A9261E98219100BFAC57 /* Assets.xcassets */; };
 		E282A92A1E98219100BFAC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E282A9281E98219100BFAC57 /* LaunchScreen.storyboard */; };
+		E282A9371E98F0A300BFAC57 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E282A9361E98F0A300BFAC57 /* PinView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		E282A9261E98219100BFAC57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E282A9291E98219100BFAC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E282A92B1E98219100BFAC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E282A9361E98F0A300BFAC57 /* PinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,23 @@
 		E282A91E1E98219100BFAC57 /* ArduinoUnoWifi */ = {
 			isa = PBXGroup;
 			children = (
-				E282A91F1E98219100BFAC57 /* AppDelegate.swift */,
+				E282A9361E98F0A300BFAC57 /* PinView.swift */,
 				E282A9211E98219100BFAC57 /* ViewController.swift */,
 				E282A9231E98219100BFAC57 /* Main.storyboard */,
+				E282A9311E98A13B00BFAC57 /* Suporting Files */,
+			);
+			path = ArduinoUnoWifi;
+			sourceTree = "<group>";
+		};
+		E282A9311E98A13B00BFAC57 /* Suporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E282A91F1E98219100BFAC57 /* AppDelegate.swift */,
 				E282A9261E98219100BFAC57 /* Assets.xcassets */,
 				E282A9281E98219100BFAC57 /* LaunchScreen.storyboard */,
 				E282A92B1E98219100BFAC57 /* Info.plist */,
 			);
-			path = ArduinoUnoWifi;
+			name = "Suporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +150,7 @@
 			files = (
 				E282A9221E98219100BFAC57 /* ViewController.swift in Sources */,
 				E282A9201E98219100BFAC57 /* AppDelegate.swift in Sources */,
+				E282A9371E98F0A300BFAC57 /* PinView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
