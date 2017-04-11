@@ -10,59 +10,32 @@ import UIKit
 
 class PinView: UIView {
     
-    var pinID = 0
-    var pinSide: PinSide = .none {
+    var pinID: Int?
+    var pinAction: Bool?
+    var pinType: PinType?
+    var pinSide: PinSide? {
         didSet {
-            switch pinSide {
-            case .left:
+            if pinSide == .left {
                 pinTitleLabel.textAlignment = NSTextAlignment.left
-            default:
+            } else {
                 pinTitleLabel.textAlignment = NSTextAlignment.right
             }
-        }
-    }
-    var pinType: PinType = .none {
-        didSet {
-            switch pinType {
-            case .none:
-                pinTitleLabel.text = ""
-            case .digit:
-                pinTitleLabel.text = String(pinID)
-            case .pwm:
-                pinTitleLabel.text = "~\(String(pinID))"
-            case .analog:
-                pinTitleLabel.text = "A\(String(pinID))"
-            case .reset:
-                pinTitleLabel.text = "Reset"
-            case .v33:
-                pinTitleLabel.text = "3.3V"
-            case .v5:
-                pinTitleLabel.text = "5V"
-            }
+            setup()
         }
     }
     fileprivate var pinState: PinState = .none {
         didSet {
-            switch pinState {
-            case .read:
-                let image = UIImage(named: "ReadFrom")
-                pinActionButton.setImage(image, for: UIControlState())
-            case .write:
-                let image = UIImage(named: "WriteTo")
-                pinActionButton.setImage(image, for: UIControlState())
-            case .none:
+            if pinState == .none {
                 let image = UIImage(named: "ButtonAddAction")
                 pinActionButton.setImage(image, for: UIControlState())
             }
         }
     }
-    fileprivate let pinTitleLabel: UILabel = {
+    let pinTitleLabel: UILabel = {
         let label = UILabel()
         label.font = label.font.withSize(17)
-        label.text = "Pin title"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-        
     }()
     fileprivate let pinActionButton: UIButton = {
         let button = UIButton()
@@ -90,6 +63,25 @@ class PinView: UIView {
         button.isHidden = true
         return button
     }()
+    fileprivate lazy var choseDigitalModeButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(named: "BinaryMode")
+        button.setImage(image, for: UIControlState())
+        button.addTarget(self, action: #selector(digitalButtonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isHidden = true
+        return button
+    }()
+    fileprivate lazy var choseAnalogModeButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(named: "PwmMode")
+        button.setImage(image, for: UIControlState())
+        button.addTarget(self, action: #selector(analogButtonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isHidden = true
+        return button
+    }()
+    
     fileprivate let removeActionButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "CancelButton")?.withRenderingMode(.alwaysTemplate)
@@ -101,6 +93,21 @@ class PinView: UIView {
         return button
     }()
     
+    fileprivate lazy var digitalActionSwitch: UISwitch = {
+        let uiSwitch = UISwitch()
+        uiSwitch.isHidden = true
+        uiSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return uiSwitch
+    }()
+    
+    fileprivate lazy var analogActionField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.font = .boldSystemFont(ofSize: 17)
+        textField.text = "123"
+        return textField
+    }()
+    
     // MARK: Init View
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -110,16 +117,15 @@ class PinView: UIView {
         self.backgroundColor = .white
     }
     
-    func pinButtonAction() {
-        print("Pin button touched")
+    @objc fileprivate func pinButtonAction() {
         if isConnectedToArduino {
-            if pinState == .none {
+            if pinAction == nil {
                 // Show read and write buttons
-                if readFromPinButton.isHidden && writeToPinButton.isHidden {
-                    readFromPinButton.isHidden = false
-                    writeToPinButton.isHidden = false
+                if readFromPinButton.isHidden && writeToPinButton.isHidden && choseAnalogModeButton.isHidden && choseDigitalModeButton.isHidden {
+                    setupReadWriteButtons()
                 } else {
                     hideReadWriteButtons()
+                    hideDigitAnalogButtons()
                 }
             } else {
                 // Show remove action button
@@ -135,49 +141,118 @@ class PinView: UIView {
             self.window?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
+    
     @objc fileprivate func readFromPinAction() {
-        print("Read from button touched")
         pinState = .read
+        if pinType == .pwm {
+            setupBinPvmButtons()
+        } else {
+            setupAction(pinType: self.pinType!)
+        }
         hideReadWriteButtons()
     }
     
     @objc fileprivate func writeToPinAction() {
-        print("Write to button touched")
         pinState = .write
+        if pinType == .pwm {
+            setupBinPvmButtons()
+        } else {
+            setupAction(pinType: self.pinType!)
+        }
         hideReadWriteButtons()
     }
+    
     @objc fileprivate func removeAction() {
-        print("Write to button touched")
         pinState = .none
+        pinAction = nil
+        if digitalActionSwitch.superview != nil {
+            digitalActionSwitch.removeFromSuperview()
+        }
+        if analogActionField.superview != nil {
+            analogActionField.removeFromSuperview()
+        }
         removeActionButton.isHidden = true
+    }
+    
+    @objc fileprivate func digitalButtonAction() {
+        hideDigitAnalogButtons()
+        setupAction(pinType: .digit)
+    }
+    @objc fileprivate func analogButtonAction() {
+        hideDigitAnalogButtons()
+        setupAction(pinType: .analog)
+    }
+    
+    fileprivate func setupAction(pinType: PinType) {
+        pinAction = true
+        if pinState == .read {
+            let image = UIImage(named: "ReadFrom")
+            pinActionButton.setImage(image, for: UIControlState())
+            digitalActionSwitch.isUserInteractionEnabled = false
+            digitalActionSwitch.isOn = true
+        }
+        if pinState == .write {
+            let image = UIImage(named: "WriteTo")
+            pinActionButton.setImage(image, for: UIControlState())
+            digitalActionSwitch.isUserInteractionEnabled = true
+            digitalActionSwitch.isOn = false
+        }
+        switch pinType {
+        case .digit:
+            setupDigitalActionSwitch()
+        case .analog:
+            setupAnalogActionField()
+        default:
+            print("Setup all other actions")
+        }
     }
     
     fileprivate func hideReadWriteButtons() {
         readFromPinButton.isHidden = true
         writeToPinButton.isHidden = true
     }
+    fileprivate func hideDigitAnalogButtons() {
+        choseAnalogModeButton.isHidden = true
+        choseDigitalModeButton.isHidden = true
+    }
     
     // Setup Constraints
     func setup() {
         setupPinButton()
         if pinType == .analog || pinType == .digit || pinType == .pwm {
-            setupReadWriteButtons()
             setupRemoveActionButton()
         }
+    }
+    
+    fileprivate func setupAnalogActionField() {
+        addSubview(analogActionField)
+        if pinSide == .left {
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":analogActionField]))
+        } else {
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":analogActionField]))
+        }
+        analogActionField.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+    }
+    
+    fileprivate func setupDigitalActionSwitch() {
+        addSubview(digitalActionSwitch)
+        digitalActionSwitch.isHidden = false
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":digitalActionSwitch]))
+        digitalActionSwitch.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
     
     fileprivate func setupRemoveActionButton() {
         addSubview(removeActionButton)
         
         if pinSide == .right {
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-30-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":removeActionButton]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":removeActionButton, "v1":pinTitleLabel]))
         } else {
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0]-30-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":removeActionButton]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel,"v1":removeActionButton]))
         }
         addConstraint(NSLayoutConstraint(item: removeActionButton, attribute: .width, relatedBy: .equal, toItem: removeActionButton, attribute: .height, multiplier: 1/1, constant: 0))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":removeActionButton]))
     }
-
+    
     fileprivate func setupPinButton() {
         addSubview(pinTitleLabel)
         addSubview(pinActionButton)
@@ -186,13 +261,13 @@ class PinView: UIView {
             // pinActionButton constraints
             addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinActionButton]))
             // pinTitleLabel constraints
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel, "v1":pinActionButton]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0(28)][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel, "v1":pinActionButton]))
         } else {
             pinActionButton.imageView?.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
             // pinActionButton constraints
             addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinActionButton]))
             // pinTitleLabel constraints
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v1][v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel, "v1":pinActionButton]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v1][v0(28)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel, "v1":pinActionButton]))
         }
         
         // pinTitleLabel constraints
@@ -203,18 +278,36 @@ class PinView: UIView {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinActionButton]))
     }
     
+    fileprivate func setupBinPvmButtons() {
+        addSubview(choseAnalogModeButton)
+        addSubview(choseDigitalModeButton)
+        choseDigitalModeButton.isHidden = false
+        choseAnalogModeButton.isHidden = false
+        
+        if pinSide == .right {
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":choseDigitalModeButton]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0]-10-[v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":choseDigitalModeButton, "v1":choseAnalogModeButton]))
+        }
+        addConstraint(NSLayoutConstraint(item: choseAnalogModeButton, attribute: .width, relatedBy: .equal, toItem: choseAnalogModeButton, attribute: .height, multiplier: 1/1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: choseDigitalModeButton, attribute: .width, relatedBy: .equal, toItem: choseDigitalModeButton, attribute: .height, multiplier: 1/1, constant: 0))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":choseAnalogModeButton]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":choseDigitalModeButton]))
+    }
+    
     fileprivate func setupReadWriteButtons() {
         addSubview(readFromPinButton)
         addSubview(writeToPinButton)
+        readFromPinButton.isHidden = false
+        writeToPinButton.isHidden = false
         
         if pinSide == .right {
             addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":readFromPinButton]))
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0]-10-[v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":readFromPinButton, "v1":writeToPinButton]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":writeToPinButton, "v1":pinTitleLabel]))
         } else {
             readFromPinButton.imageView?.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
             writeToPinButton.imageView?.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
             addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":readFromPinButton]))
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v1]-10-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":readFromPinButton, "v1":writeToPinButton]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel,"v1":writeToPinButton]))
         }
         addConstraint(NSLayoutConstraint(item: readFromPinButton, attribute: .width, relatedBy: .equal, toItem: readFromPinButton, attribute: .height, multiplier: 1/1, constant: 0))
         addConstraint(NSLayoutConstraint(item: writeToPinButton, attribute: .width, relatedBy: .equal, toItem: writeToPinButton, attribute: .height, multiplier: 1/1, constant: 0))
@@ -228,9 +321,9 @@ enum PinState {
 }
 
 enum PinType {
-    case none, digit, pwm, analog, reset, v5, v33
+    case digit, pwm, analog, service
 }
 
 enum PinSide {
-    case none, left, right
+    case left, right
 }

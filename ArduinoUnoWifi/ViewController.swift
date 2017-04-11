@@ -43,31 +43,31 @@ class ViewController: UIViewController {
     
     func initPinViews() {
         // Arduino left side pins
-        pinResetview.pinID = 69; pinResetview.pinType = .reset; pinResetview.pinSide = .left; pinResetview.setup()
-        pin33Vview.pinID = 33; pin33Vview.pinType = .v33; pin33Vview.pinSide = .left; pin33Vview.setup()
-        pin5Vview.pinID = 50; pin5Vview.pinType = .v5; pin5Vview.pinSide = .left; pin5Vview.setup()
-        pinA0view.pinID = 0; pinA0view.pinType = .analog; pinA0view.pinSide = .left; pinA0view.setup()
-        pinA1view.pinID = 1; pinA1view.pinType = .analog; pinA1view.pinSide = .left; pinA1view.setup()
-        pinA2view.pinID = 2; pinA2view.pinType = .analog; pinA2view.pinSide = .left; pinA2view.setup()
-        pinA3view.pinID = 3; pinA3view.pinType = .analog; pinA3view.pinSide = .left; pinA3view.setup()
-        pinA4view.pinID = 4; pinA4view.pinType = .analog; pinA4view.pinSide = .left; pinA4view.setup()
-        pinA5view.pinID = 5; pinA5view.pinType = .analog; pinA5view.pinSide = .left; pinA5view.setup()
+        pinResetview.pinID = 69; pinResetview.pinType = .service; pinResetview.pinTitleLabel.text = "Reset"; pinResetview.pinSide = .left
+        pin33Vview.pinID = 33; pin33Vview.pinType = .service; pin33Vview.pinTitleLabel.text = "3.3V"; pin33Vview.pinSide = .left
+        pin5Vview.pinID = 50; pin5Vview.pinType = .service; pin5Vview.pinTitleLabel.text = "5V"; pin5Vview.pinSide = .left
+        pinA0view.pinID = 0; pinA0view.pinType = .analog; pinA0view.pinTitleLabel.text = "A0"; pinA0view.pinSide = .left
+        pinA1view.pinID = 1; pinA1view.pinType = .analog; pinA1view.pinTitleLabel.text = "A1"; pinA1view.pinSide = .left
+        pinA2view.pinID = 2; pinA2view.pinType = .analog; pinA2view.pinTitleLabel.text = "A2"; pinA2view.pinSide = .left
+        pinA3view.pinID = 3; pinA3view.pinType = .analog; pinA3view.pinTitleLabel.text = "A3"; pinA3view.pinSide = .left
+        pinA4view.pinID = 4; pinA4view.pinType = .analog; pinA4view.pinTitleLabel.text = "A4"; pinA4view.pinSide = .left
+        pinA5view.pinID = 5; pinA5view.pinType = .analog; pinA5view.pinTitleLabel.text = "A5"; pinA5view.pinSide = .left
         
         // Arduino right side pins
-        pin0view.pinID = 0; pin0view.pinType = .digit; pin0view.pinSide = .right; pin0view.setup()
-        pin1view.pinID = 1; pin1view.pinType = .digit; pin1view.pinSide = .right; pin1view.setup()
-        pin2view.pinID = 2; pin2view.pinType = .digit; pin2view.pinSide = .right; pin2view.setup()
-        pin3view.pinID = 3; pin3view.pinType = .pwm; pin3view.pinSide = .right; pin3view.setup()
-        pin4view.pinID = 4; pin4view.pinType = .digit; pin4view.pinSide = .right; pin4view.setup()
-        pin5view.pinID = 5; pin5view.pinType = .pwm; pin5view.pinSide = .right; pin5view.setup()
-        pin6view.pinID = 6; pin6view.pinType = .pwm; pin6view.pinSide = .right; pin6view.setup()
-        pin7view.pinID = 7; pin7view.pinType = .digit; pin7view.pinSide = .right; pin7view.setup()
-        pin8view.pinID = 8; pin8view.pinType = .digit; pin8view.pinSide = .right; pin8view.setup()
-        pin9view.pinID = 9; pin9view.pinType = .pwm; pin9view.pinSide = .right; pin9view.setup()
-        pin10view.pinID = 10; pin10view.pinType = .pwm; pin10view.pinSide = .right; pin10view.setup()
-        pin11view.pinID = 11; pin11view.pinType = .pwm; pin11view.pinSide = .right; pin11view.setup()
-        pin12view.pinID = 12; pin12view.pinType = .digit; pin12view.pinSide = .right; pin12view.setup()
-        pin13view.pinID = 13; pin13view.pinType = .digit; pin13view.pinSide = .right; pin13view.setup()
+        pin0view.pinID = 0; pin0view.pinType = .digit; pin0view.pinTitleLabel.text = "0"; pin0view.pinSide = .right
+        pin1view.pinID = 1; pin1view.pinType = .digit; pin1view.pinTitleLabel.text = "1"; pin1view.pinSide = .right
+        pin2view.pinID = 2; pin2view.pinType = .digit; pin2view.pinTitleLabel.text = "2"; pin2view.pinSide = .right
+        pin3view.pinID = 3; pin3view.pinType = .pwm; pin3view.pinTitleLabel.text = "~3"; pin3view.pinSide = .right
+        pin4view.pinID = 4; pin4view.pinType = .digit; pin4view.pinTitleLabel.text = "4"; pin4view.pinSide = .right
+        pin5view.pinID = 5; pin5view.pinType = .pwm; pin5view.pinTitleLabel.text = "~5"; pin5view.pinSide = .right
+        pin6view.pinID = 6; pin6view.pinType = .pwm; pin6view.pinTitleLabel.text = "~6"; pin6view.pinSide = .right
+        pin7view.pinID = 7; pin7view.pinType = .digit; pin7view.pinTitleLabel.text = "7"; pin7view.pinSide = .right
+        pin8view.pinID = 8; pin8view.pinType = .digit; pin8view.pinTitleLabel.text = "8"; pin8view.pinSide = .right
+        pin9view.pinID = 9; pin9view.pinType = .pwm; pin9view.pinTitleLabel.text = "~9"; pin9view.pinSide = .right
+        pin10view.pinID = 10; pin10view.pinType = .pwm; pin10view.pinTitleLabel.text = "~10"; pin10view.pinSide = .right
+        pin11view.pinID = 11; pin11view.pinType = .pwm; pin11view.pinTitleLabel.text = "~11"; pin11view.pinSide = .right
+        pin12view.pinID = 12; pin12view.pinType = .digit; pin12view.pinTitleLabel.text = "12"; pin12view.pinSide = .right
+        pin13view.pinID = 13; pin13view.pinType = .digit; pin13view.pinTitleLabel.text = "13"; pin13view.pinSide = .right
     }
 
     override func didReceiveMemoryWarning() {
