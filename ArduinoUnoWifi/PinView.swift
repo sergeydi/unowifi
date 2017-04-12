@@ -105,6 +105,8 @@ class PinView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = .boldSystemFont(ofSize: 17)
         textField.text = "123"
+        textField.addTarget(nil, action:#selector(removeKeyboard), for:.editingDidEndOnExit)
+        textField.keyboardType = UIKeyboardType.numbersAndPunctuation
         return textField
     }()
     
@@ -205,6 +207,10 @@ class PinView: UIView {
         default:
             print("Setup all other actions")
         }
+    }
+    
+    @objc fileprivate func removeKeyboard() {
+        print("Finish entering text to analogActionField")
     }
     
     fileprivate func hideReadWriteButtons() {

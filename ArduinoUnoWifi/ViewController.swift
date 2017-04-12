@@ -11,6 +11,7 @@ import UIKit
 public var isConnectedToArduino = true
 class ViewController: UIViewController {
    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pinResetview: PinView!
     @IBOutlet weak var pin33Vview: PinView!
     @IBOutlet weak var pin5Vview: PinView!
@@ -37,10 +38,28 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         initPinViews()
+        // Fix issue with scrollview and navigation controller offset
+        self.automaticallyAdjustsScrollViewInsets = false
+        // Scroll view with all pins if keyboard pop up
+        registerForKeyboardNotifications()
     }
     
+    // Methods used for offset scrollView if keyboard pop up
+    func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    func kbWillShow(_ notification: Notification) {
+        let userInfo = notification.userInfo
+        let kbFrameSize = (userInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        scrollView.contentOffset = CGPoint(x: 0, y: kbFrameSize.height)
+    }
+    func kbWillHide() {
+        scrollView.contentOffset = CGPoint.zero
+    }
+    
+    // Configure all Arduino UNO pins 
     func initPinViews() {
         // Arduino left side pins
         pinResetview.pinID = 69; pinResetview.pinType = .service; pinResetview.pinTitleLabel.text = "Reset"; pinResetview.pinSide = .left
@@ -73,6 +92,11 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
 
