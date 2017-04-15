@@ -105,8 +105,8 @@ class PinView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = .boldSystemFont(ofSize: 17)
         textField.text = "123"
-        textField.addTarget(nil, action:#selector(removeKeyboard), for:.editingDidEndOnExit)
-        textField.keyboardType = UIKeyboardType.numbersAndPunctuation
+        textField.addTarget(nil, action:#selector(showAnalogKeyboard), for:.editingDidBegin)
+        textField.keyboardType = UIKeyboardType.numberPad
         return textField
     }()
     
@@ -117,6 +117,10 @@ class PinView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.backgroundColor = .white
+    }
+    
+    func showAnalogKeyboard() {
+        CustomKeyboard.instance.textField = analogActionField
     }
     
     @objc fileprivate func pinButtonAction() {
@@ -207,10 +211,6 @@ class PinView: UIView {
         default:
             print("Setup all other actions")
         }
-    }
-    
-    @objc fileprivate func removeKeyboard() {
-        print("Finish entering text to analogActionField")
     }
     
     fileprivate func hideReadWriteButtons() {

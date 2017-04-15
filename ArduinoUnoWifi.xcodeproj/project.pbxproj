@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E23908DA1EA12D240031E4E8 /* CustomKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23908D91EA12D240031E4E8 /* CustomKeyboard.swift */; };
 		E282A9201E98219100BFAC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E282A91F1E98219100BFAC57 /* AppDelegate.swift */; };
 		E282A9221E98219100BFAC57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E282A9211E98219100BFAC57 /* ViewController.swift */; };
 		E282A9251E98219100BFAC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E282A9231E98219100BFAC57 /* Main.storyboard */; };
 		E282A9271E98219100BFAC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E282A9261E98219100BFAC57 /* Assets.xcassets */; };
 		E282A92A1E98219100BFAC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E282A9281E98219100BFAC57 /* LaunchScreen.storyboard */; };
 		E282A9371E98F0A300BFAC57 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E282A9361E98F0A300BFAC57 /* PinView.swift */; };
+		E2C2BC871EA2773500E317E6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C2BC861EA2773500E317E6 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E23908D91EA12D240031E4E8 /* CustomKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKeyboard.swift; sourceTree = "<group>"; };
 		E282A91C1E98219100BFAC57 /* ArduinoUnoWifi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArduinoUnoWifi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E282A91F1E98219100BFAC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E282A9211E98219100BFAC57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		E282A9291E98219100BFAC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E282A92B1E98219100BFAC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E282A9361E98F0A300BFAC57 /* PinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
+		E2C2BC861EA2773500E317E6 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				E282A9361E98F0A300BFAC57 /* PinView.swift */,
+				E23908D91EA12D240031E4E8 /* CustomKeyboard.swift */,
+				E2C2BC861EA2773500E317E6 /* Extensions.swift */,
 				E282A9211E98219100BFAC57 /* ViewController.swift */,
 				E282A9231E98219100BFAC57 /* Main.storyboard */,
 				E282A9311E98A13B00BFAC57 /* Suporting Files */,
@@ -148,8 +154,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2C2BC871EA2773500E317E6 /* Extensions.swift in Sources */,
 				E282A9221E98219100BFAC57 /* ViewController.swift in Sources */,
 				E282A9201E98219100BFAC57 /* AppDelegate.swift in Sources */,
+				E23908DA1EA12D240031E4E8 /* CustomKeyboard.swift in Sources */,
 				E282A9371E98F0A300BFAC57 /* PinView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,6 +324,7 @@
 				E282A9301E98219100BFAC57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
