@@ -31,17 +31,22 @@ class CustomKeyboard {
         let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
         toolbar.barStyle = UIBarStyle.default
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        toolbar.tintColor = UIColor(red: 0.0, green: 146.0/255.0, blue: 159.0/255.0, alpha: 1.0)
+        
         let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        //done.tintColor = UIColor(red: 0, green: 146, blue: 159, alpha: 1)
         let cancel: UIBarButtonItem  = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.done, target: self, action: #selector(cancelButtonAction))
         actionSlider.addTarget(self, action: #selector(sliderChangeTracking), for: .valueChanged)
         let slider: UIBarButtonItem = UIBarButtonItem(customView: actionSlider)
         slider.width = UIScreen.main.bounds.width / 2
+        
         var items = [UIBarButtonItem]()
         items.append(cancel)
         items.append(flexSpace)
         items.append(slider)
         items.append(flexSpace)
         items.append(done)
+        
         toolbar.items = items
         toolbar.sizeToFit()
         textField?.inputAccessoryView = toolbar

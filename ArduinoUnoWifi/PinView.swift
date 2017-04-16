@@ -40,7 +40,7 @@ class PinView: UIView {
     fileprivate let pinActionButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "ButtonAddAction")
-        button.setImage(image, for: UIControlState())
+        button.setImage(image, for: .normal)
         button.addTarget(self, action: #selector(pinButtonAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -96,6 +96,8 @@ class PinView: UIView {
     fileprivate lazy var digitalActionSwitch: UISwitch = {
         let uiSwitch = UISwitch()
         uiSwitch.isHidden = true
+        uiSwitch.tintColor = UIColor(red: 0.0, green: 146.0/255.0, blue: 159.0/255.0, alpha: 1.0)
+        uiSwitch.onTintColor = UIColor(red: 0.0, green: 146.0/255.0, blue: 159.0/255.0, alpha: 1.0)
         uiSwitch.translatesAutoresizingMaskIntoConstraints = false
         return uiSwitch
     }()
@@ -103,8 +105,13 @@ class PinView: UIView {
     fileprivate lazy var analogActionField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = .boldSystemFont(ofSize: 17)
-        textField.text = "123"
+        textField.borderStyle = .roundedRect
+        textField.layer.borderWidth = 1.5
+        textField.layer.cornerRadius = 5.0
+        textField.layer.borderColor = UIColor(red: 0.0, green: 146.0/255.0, blue: 159.0/255.0, alpha: 1.0).cgColor
+        textField.textAlignment = .center
+        textField.font = UIFont(name: "HelveticaNeue-Bold", size: 16)
+        textField.text = "1234"
         textField.addTarget(nil, action:#selector(showAnalogKeyboard), for:.editingDidBegin)
         textField.keyboardType = UIKeyboardType.numberPad
         return textField
@@ -125,7 +132,7 @@ class PinView: UIView {
     
     @objc fileprivate func pinButtonAction() {
         if isConnectedToArduino {
-            if pinAction == nil {
+            if pinAction == nil && pinType != .service {
                 // Show read and write buttons
                 if readFromPinButton.isHidden && writeToPinButton.isHidden && choseAnalogModeButton.isHidden && choseDigitalModeButton.isHidden {
                     setupReadWriteButtons()
@@ -195,12 +202,14 @@ class PinView: UIView {
             let image = UIImage(named: "ReadFrom")
             pinActionButton.setImage(image, for: UIControlState())
             digitalActionSwitch.isUserInteractionEnabled = false
+            analogActionField.isUserInteractionEnabled = false
             digitalActionSwitch.isOn = true
         }
         if pinState == .write {
             let image = UIImage(named: "WriteTo")
             pinActionButton.setImage(image, for: UIControlState())
             digitalActionSwitch.isUserInteractionEnabled = true
+            analogActionField.isUserInteractionEnabled = true
             digitalActionSwitch.isOn = false
         }
         switch pinType {
@@ -233,9 +242,9 @@ class PinView: UIView {
     fileprivate func setupAnalogActionField() {
         addSubview(analogActionField)
         if pinSide == .left {
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":analogActionField]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0(51)]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":analogActionField]))
         } else {
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":analogActionField]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0(51)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":analogActionField]))
         }
         analogActionField.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
@@ -273,7 +282,11 @@ class PinView: UIView {
             // pinActionButton constraints
             addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinActionButton]))
             // pinTitleLabel constraints
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v1][v0(28)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel, "v1":pinActionButton]))
+            if pinType == .service {
+                addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v1][v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel, "v1":pinActionButton]))
+            } else {
+                addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v1][v0(28)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel, "v1":pinActionButton]))
+            }
         }
         
         // pinTitleLabel constraints
@@ -292,7 +305,7 @@ class PinView: UIView {
         
         if pinSide == .right {
             addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":choseDigitalModeButton]))
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0]-10-[v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":choseDigitalModeButton, "v1":choseAnalogModeButton]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":choseAnalogModeButton, "v1":pinTitleLabel]))
         }
         addConstraint(NSLayoutConstraint(item: choseAnalogModeButton, attribute: .width, relatedBy: .equal, toItem: choseAnalogModeButton, attribute: .height, multiplier: 1/1, constant: 0))
         addConstraint(NSLayoutConstraint(item: choseDigitalModeButton, attribute: .width, relatedBy: .equal, toItem: choseDigitalModeButton, attribute: .height, multiplier: 1/1, constant: 0))
