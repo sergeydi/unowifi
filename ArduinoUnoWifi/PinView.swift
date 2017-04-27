@@ -160,7 +160,7 @@ class PinView: UIView {
         if pinType == .pwm {
             setupBinPvmButtons()
         } else {
-            setupAction(pinType: self.pinType!)
+            setupAction(self.pinType!)
         }
         hideReadWriteButtons()
     }
@@ -170,7 +170,7 @@ class PinView: UIView {
         if pinType == .pwm {
             setupBinPvmButtons()
         } else {
-            setupAction(pinType: self.pinType!)
+            setupAction(self.pinType!)
         }
         hideReadWriteButtons()
     }
@@ -189,14 +189,14 @@ class PinView: UIView {
     
     @objc fileprivate func digitalButtonAction() {
         hideDigitAnalogButtons()
-        setupAction(pinType: .digit)
+        setupAction(.digit)
     }
     @objc fileprivate func analogButtonAction() {
         hideDigitAnalogButtons()
-        setupAction(pinType: .analog)
+        setupAction(.analog)
     }
     
-    fileprivate func setupAction(pinType: PinType) {
+    fileprivate func setupAction(_ pinType: PinType) {
         pinAction = true
         if pinState == .read {
             let image = UIImage(named: "ReadFrom")

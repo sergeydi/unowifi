@@ -8,9 +8,13 @@
 
 import UIKit
 
-public var isConnectedToArduino = true
+public var isConnectedToArduino = false
 class ViewController: UIViewController {
    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var connectButton: UIButton!
+    @IBAction func connectButtonAction(_ sender: Any) { connectToArduino() }
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pinResetview: PinView!
     @IBOutlet weak var pin33Vview: PinView!
@@ -57,6 +61,10 @@ class ViewController: UIViewController {
     }
     func kbWillHide() {
         scrollView.contentOffset = CGPoint.zero
+    }
+    
+    func connectToArduino() {
+        
     }
     
     // Configure all Arduino UNO pins 

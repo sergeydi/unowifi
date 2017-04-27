@@ -11,15 +11,15 @@ import UIKit
 
 extension UIApplication {
     
-    static func topViewController(base: UIViewController? = UIApplication.shared.delegate?.window??.rootViewController) -> UIViewController? {
+    static func topViewController(_ base: UIViewController? = UIApplication.shared.delegate?.window??.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
-            return topViewController(base: nav.visibleViewController)
+            return topViewController(nav.visibleViewController)
         }
         if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
-            return topViewController(base: selected)
+            return topViewController(selected)
         }
         if let presented = base?.presentedViewController {
-            return topViewController(base: presented)
+            return topViewController(presented)
         }
         
         return base

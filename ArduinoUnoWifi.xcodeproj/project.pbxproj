@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B17EE00A5560E9687E616D95 /* Pods_ArduinoUnoWifi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3624A5434F9FCC9A045C60A /* Pods_ArduinoUnoWifi.framework */; };
 		E23908DA1EA12D240031E4E8 /* CustomKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23908D91EA12D240031E4E8 /* CustomKeyboard.swift */; };
 		E282A9201E98219100BFAC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E282A91F1E98219100BFAC57 /* AppDelegate.swift */; };
 		E282A9221E98219100BFAC57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E282A9211E98219100BFAC57 /* ViewController.swift */; };
@@ -15,9 +16,13 @@
 		E282A92A1E98219100BFAC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E282A9281E98219100BFAC57 /* LaunchScreen.storyboard */; };
 		E282A9371E98F0A300BFAC57 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E282A9361E98F0A300BFAC57 /* PinView.swift */; };
 		E2C2BC871EA2773500E317E6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C2BC861EA2773500E317E6 /* Extensions.swift */; };
+		E2D374E11EAFC46F0008328B /* ConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D374E01EAFC46F0008328B /* ConfigurationTableViewController.swift */; };
+		E2D374E31EAFCEAF0008328B /* ArduinoConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D374E21EAFCEAF0008328B /* ArduinoConnect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B3624A5434F9FCC9A045C60A /* Pods_ArduinoUnoWifi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArduinoUnoWifi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBFBBCA8946B4DEFBB63DBEF /* Pods-ArduinoUnoWifi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArduinoUnoWifi.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArduinoUnoWifi/Pods-ArduinoUnoWifi.release.xcconfig"; sourceTree = "<group>"; };
 		E23908D91EA12D240031E4E8 /* CustomKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKeyboard.swift; sourceTree = "<group>"; };
 		E282A91C1E98219100BFAC57 /* ArduinoUnoWifi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArduinoUnoWifi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E282A91F1E98219100BFAC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -28,6 +33,9 @@
 		E282A92B1E98219100BFAC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E282A9361E98F0A300BFAC57 /* PinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
 		E2C2BC861EA2773500E317E6 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E2D374E01EAFC46F0008328B /* ConfigurationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationTableViewController.swift; sourceTree = "<group>"; };
+		E2D374E21EAFCEAF0008328B /* ArduinoConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArduinoConnect.swift; sourceTree = "<group>"; };
+		ED8CED8DABD8A6F2A9803395 /* Pods-ArduinoUnoWifi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArduinoUnoWifi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArduinoUnoWifi/Pods-ArduinoUnoWifi.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +43,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B17EE00A5560E9687E616D95 /* Pods_ArduinoUnoWifi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		033B3D7DBDEC8DE1B20FBA82 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B3624A5434F9FCC9A045C60A /* Pods_ArduinoUnoWifi.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8DFDE0C89A63536AC952B4F0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ED8CED8DABD8A6F2A9803395 /* Pods-ArduinoUnoWifi.debug.xcconfig */,
+				DBFBBCA8946B4DEFBB63DBEF /* Pods-ArduinoUnoWifi.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E282A9131E98219100BFAC57 = {
 			isa = PBXGroup;
 			children = (
 				E282A91E1E98219100BFAC57 /* ArduinoUnoWifi */,
 				E282A91D1E98219100BFAC57 /* Products */,
+				8DFDE0C89A63536AC952B4F0 /* Pods */,
+				033B3D7DBDEC8DE1B20FBA82 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +92,8 @@
 				E23908D91EA12D240031E4E8 /* CustomKeyboard.swift */,
 				E2C2BC861EA2773500E317E6 /* Extensions.swift */,
 				E282A9211E98219100BFAC57 /* ViewController.swift */,
+				E2D374E01EAFC46F0008328B /* ConfigurationTableViewController.swift */,
+				E2D374E21EAFCEAF0008328B /* ArduinoConnect.swift */,
 				E282A9231E98219100BFAC57 /* Main.storyboard */,
 				E282A9311E98A13B00BFAC57 /* Suporting Files */,
 			);
@@ -88,9 +118,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E282A92E1E98219100BFAC57 /* Build configuration list for PBXNativeTarget "ArduinoUnoWifi" */;
 			buildPhases = (
+				0949088E1A80FDA8865E8672 /* [CP] Check Pods Manifest.lock */,
 				E282A9181E98219100BFAC57 /* Sources */,
 				E282A9191E98219100BFAC57 /* Frameworks */,
 				E282A91A1E98219100BFAC57 /* Resources */,
+				0336F0BEB73509A49E6E8751 /* [CP] Embed Pods Frameworks */,
+				EF11F6158AA2E274E4A0ABF5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -114,6 +147,7 @@
 					E282A91B1E98219100BFAC57 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = 53273R3EAC;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -149,14 +183,64 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0336F0BEB73509A49E6E8751 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ArduinoUnoWifi/Pods-ArduinoUnoWifi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0949088E1A80FDA8865E8672 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EF11F6158AA2E274E4A0ABF5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ArduinoUnoWifi/Pods-ArduinoUnoWifi-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E282A9181E98219100BFAC57 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2D374E11EAFC46F0008328B /* ConfigurationTableViewController.swift in Sources */,
 				E2C2BC871EA2773500E317E6 /* Extensions.swift in Sources */,
 				E282A9221E98219100BFAC57 /* ViewController.swift in Sources */,
 				E282A9201E98219100BFAC57 /* AppDelegate.swift in Sources */,
+				E2D374E31EAFCEAF0008328B /* ArduinoConnect.swift in Sources */,
 				E23908DA1EA12D240031E4E8 /* CustomKeyboard.swift in Sources */,
 				E282A9371E98F0A300BFAC57 /* PinView.swift in Sources */,
 			);
@@ -279,6 +363,7 @@
 		};
 		E282A92F1E98219100BFAC57 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED8CED8DABD8A6F2A9803395 /* Pods-ArduinoUnoWifi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 53273R3EAC;
@@ -293,6 +378,7 @@
 		};
 		E282A9301E98219100BFAC57 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBFBBCA8946B4DEFBB63DBEF /* Pods-ArduinoUnoWifi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 53273R3EAC;
