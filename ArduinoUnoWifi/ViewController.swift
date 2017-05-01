@@ -10,10 +10,10 @@ import UIKit
 
 public var isConnectedToArduino = false
 class ViewController: UIViewController {
-   
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var connectButton: UIButton!
-    @IBAction func connectButtonAction(_ sender: Any) { connectToArduino() }
+    @IBAction func connectButtonAction(_ sender: Any) { connectToArduinoButtonAction() }
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pinResetview: PinView!
@@ -39,7 +39,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var pin11view: PinView!
     @IBOutlet weak var pin12view: PinView!
     @IBOutlet weak var pin13view: PinView!
-
+    
+    let arduino = ArduinoConnect()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initPinViews()
@@ -47,6 +49,18 @@ class ViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         // Scroll view with all pins if keyboard pop up
         registerForKeyboardNotifications()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if !isConnectedToArduino {
+            connectButton.setImage(UIImage(named: "Disconnected"), for: .normal)
+            if UserDefaults.standard.bool(forKey: "autoLogin") == true {
+                connectToArduino()
+            }
+        } else {
+            connectButton.setImage(UIImage(named: "Connected"), for: .normal)
+        }
     }
     
     // Methods used for offset scrollView if keyboard pop up
@@ -63,11 +77,33 @@ class ViewController: UIViewController {
         scrollView.contentOffset = CGPoint.zero
     }
     
-    func connectToArduino() {
-        
+    func connectToArduinoButtonAction() {
+        if !isConnectedToArduino {
+            connectToArduino()
+        } else {
+            isConnectedToArduino = false
+            connectButton.setImage(UIImage(named: "Disconnected"), for: .normal)
+        }
     }
     
-    // Configure all Arduino UNO pins 
+    func connectToArduino() {
+        guard let arduinoIP = UserDefaults.standard.string(forKey: "arduinoIP") else { showAlert(withMessage: "First set Arduino IP-address"); return }
+        if !isConnectedToArduino {
+            activityIndicator.startAnimating()
+            print("Try connect to Arduino")
+            arduino.connect(to: arduinoIP) { connected in
+                if connected {
+                    isConnectedToArduino = true
+                    self.connectButton.setImage(UIImage(named: "Connected"), for: .normal)
+                } else {
+                    self.showAlert(withMessage: "Could not connect to Arduino")
+                }
+                self.activityIndicator.stopAnimating()
+            }
+        }
+    }
+    
+    // Configure all Arduino UNO pins
     func initPinViews() {
         // Arduino left side pins
         pinResetview.pinID = 69; pinResetview.pinType = .service; pinResetview.pinTitleLabel.text = "Reset"; pinResetview.pinSide = .left
@@ -96,7 +132,13 @@ class ViewController: UIViewController {
         pin12view.pinID = 12; pin12view.pinType = .digit; pin12view.pinTitleLabel.text = "12"; pin12view.pinSide = .right
         pin13view.pinID = 13; pin13view.pinType = .digit; pin13view.pinTitleLabel.text = "13"; pin13view.pinSide = .right
     }
-
+    
+    func showAlert(withMessage message: String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -106,7 +148,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-
-
+    
+    
 }
 
