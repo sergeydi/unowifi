@@ -15,4 +15,20 @@ class ArduinoConnect {
         connectCompleteHandler(!isConnectedToArduino)
     }
     
+    func setDigital(pin: Int, toState: Bool, completeHandler:@escaping (Bool) -> Void ) {
+        print("Try set Digital pin to \(toState)")
+    }
+    
+    func getDigital(pin: Int, completeHandler:@escaping (Bool, Bool?) -> Void ) {
+        print("Try to get Digital pin")
+    }
+    
+    func setAnalog(pin: Int, toValue: Int, completeHandler:@escaping (Bool) -> Void ) {
+        print("Try set Analog pin")
+    }
+    
+    func getAnalog(pin: Int, completeHandler:@escaping (Bool, Int?) -> Void ) {
+        print("Try to get Analog pin")
+    }
+    
 }

@@ -88,6 +88,7 @@ class ViewController: UIViewController {
     
     func connectToArduino() {
         guard let arduinoIP = UserDefaults.standard.string(forKey: "arduinoIP") else { showAlert(withMessage: "First set Arduino IP-address"); return }
+        
         if !isConnectedToArduino {
             activityIndicator.startAnimating()
             print("Try connect to Arduino")
