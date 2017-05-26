@@ -147,10 +147,6 @@ class PinView: UIView {
                     removeActionButton.isHidden = true
                 }
             }
-        } else {
-            let alert = UIAlertController(title: "Alert", message: "Please connect to Arduino UNO FiWi!", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -209,7 +205,7 @@ class PinView: UIView {
             pinActionButton.setImage(image, for: UIControlState())
             digitalActionSwitch.isUserInteractionEnabled = false
             analogActionField.isUserInteractionEnabled = false
-            digitalActionSwitch.isOn = true
+            //digitalActionSwitch.isOn = true
         }
         if pinState == .write {
             let image = UIImage(named: "WriteTo")
@@ -230,10 +226,18 @@ class PinView: UIView {
     
     // Pin actions
     func getDigitalData() {
-        arduino?.getDigital(pin: pinID!) {_,_ in }
+        arduino?.getDigital(pin: pinID!) { result in
+            if let result = result {
+                self.digitalActionSwitch.setOn(result, animated: true)
+            }
+        }
     }
     func digitalActionSwitchChanged(_ mySwitch: UISwitch) {
-        arduino?.setDigital(pin: pinID!, toState: digitalActionSwitch.isOn) {_ in }
+        arduino?.setDigital(pin: pinID!, toState: digitalActionSwitch.isOn) { result in
+            if !result {
+                self.digitalActionSwitch.setOn(!self.digitalActionSwitch.isOn, animated: true)
+            }
+        }
     }
     func setAnalogData() {
         print("Try to set analog data")
@@ -271,6 +275,12 @@ class PinView: UIView {
             digitalActionSwitch.addTarget(self, action: #selector(PinView.digitalActionSwitchChanged(_:)), for: UIControlEvents.valueChanged)
         } else if pinState == .read {
             dataReceiveTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.getDigitalData), userInfo: nil, repeats: true)
+        }
+        // Get Current state of pine
+        arduino?.getDigital(pin: pinID!) { result in
+            if let result = result {
+                self.digitalActionSwitch.setOn(result, animated: true)
+            }
         }
     }
     

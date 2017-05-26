@@ -8,9 +8,10 @@
 
 import UIKit
 
-public var isConnectedToArduino = false
+var isConnectedToArduino = false
 class ViewController: UIViewController {
     
+    @IBOutlet weak var pinsView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var connectButton: UIButton!
     @IBAction func connectButtonAction(_ sender: Any) { connectToArduinoButtonAction() }
@@ -40,6 +41,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var pin12view: PinView!
     @IBOutlet weak var pin13view: PinView!
     
+    let invisibleScreenButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(invisibleScreenButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     let arduino = ArduinoConnect()
     
     override func viewDidLoad() {
@@ -49,10 +56,19 @@ class ViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         // Scroll view with all pins if keyboard pop up
         registerForKeyboardNotifications()
+        
+        // Detect when lost connection to arduino
+        NotificationCenter.default.addObserver(self, selector: #selector(lostConnection), name: NSNotification.Name(rawValue: "lostConnection"), object: nil)
+        
+        // Detect when app go to background and become Active
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appBecomeActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
+        invisibleScreenButton.frame = pinsView.bounds
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        pinsView.addSubview(invisibleScreenButton)
         if !isConnectedToArduino {
             connectButton.setImage(UIImage(named: "Disconnected"), for: .normal)
             if UserDefaults.standard.bool(forKey: "autoLogin") == true {
@@ -60,6 +76,31 @@ class ViewController: UIViewController {
             }
         } else {
             connectButton.setImage(UIImage(named: "Connected"), for: .normal)
+        }
+    }
+    
+    func invisibleScreenButtonTapped() {
+        let alert = UIAlertController(title: "Alert", message: "Please connect to Arduino UNO FiWi!", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func appMovedToBackground() {
+        lostConnection()
+    }
+    func appBecomeActive() {
+        if !isConnectedToArduino {
+            connectButton.setImage(UIImage(named: "Disconnected"), for: .normal)
+            if UserDefaults.standard.bool(forKey: "autoLogin") == true {
+                connectToArduino()
+            }
+        }
+    }
+    func lostConnection() {
+        pinsView.addSubview(invisibleScreenButton)
+        if isConnectedToArduino {
+            isConnectedToArduino = false
+            connectButton.setImage(UIImage(named: "Disconnected"), for: .normal)
         }
     }
     
@@ -81,8 +122,7 @@ class ViewController: UIViewController {
         if !isConnectedToArduino {
             connectToArduino()
         } else {
-            isConnectedToArduino = false
-            connectButton.setImage(UIImage(named: "Disconnected"), for: .normal)
+            lostConnection()
         }
     }
     
@@ -96,6 +136,7 @@ class ViewController: UIViewController {
                 if connected {
                     isConnectedToArduino = true
                     self.connectButton.setImage(UIImage(named: "Connected"), for: .normal)
+                    self.invisibleScreenButton.removeFromSuperview()
                 } else {
                     self.showAlert(withMessage: "Could not connect to Arduino")
                 }

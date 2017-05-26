@@ -11,16 +11,37 @@ import Alamofire
 
 class ArduinoConnect {
     
-    func connect(to: String, connectCompleteHandler:@escaping (Bool) -> Void) {
-        connectCompleteHandler(!isConnectedToArduino)
+    func connect(to host: String, completeHandler:@escaping (Bool) -> Void) {
+        let url = "http://\(host)/arduino/digital/13"
+        Alamofire.request(url).responseData { response in
+            completeHandler(response.result.isSuccess ? true : false)
+        }
     }
     
     func setDigital(pin: Int, toState: Bool, completeHandler:@escaping (Bool) -> Void ) {
-        print("Try set Digital pin to \(toState)")
+        guard let arduinoIP = UserDefaults.standard.string(forKey: "arduinoIP") else { return completeHandler(false) }
+        let url = "http://\(arduinoIP)/arduino/digital/\(pin)/\(toState ? 1 : 0)"
+        Alamofire.request(url).responseData { response in
+            if response.result.isSuccess {
+                completeHandler(true)
+            } else {
+                completeHandler(false)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "lostConnection"), object: nil)
+            }
+        }
     }
     
-    func getDigital(pin: Int, completeHandler:@escaping (Bool, Bool?) -> Void ) {
-        print("Try to get Digital pin")
+    func getDigital(pin: Int, completeHandler:@escaping (Bool?) -> Void ) {
+        guard let arduinoIP = UserDefaults.standard.string(forKey: "arduinoIP") else { return completeHandler(nil) }
+        let url = "http://\(arduinoIP)/arduino/digital/\(pin)"
+        Alamofire.request(url).responseString { response in
+            if let resultValue = response.result.value {
+                let value = Int(String(resultValue.components(separatedBy: " ")[4].characters.filter { !"\r\n".characters.contains($0) }))
+                completeHandler(value == 1 ? true : false)
+            } else {
+                completeHandler(nil)
+            }
+        }
     }
     
     func setAnalog(pin: Int, toValue: Int, completeHandler:@escaping (Bool) -> Void ) {
