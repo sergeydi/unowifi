@@ -47,6 +47,7 @@ class ViewController: UIViewController {
         return button
     }()
     
+    var connecting = false
     let arduino = ArduinoConnect()
     
     override func viewDidLoad() {
@@ -80,9 +81,7 @@ class ViewController: UIViewController {
     }
     
     func invisibleScreenButtonTapped() {
-        let alert = UIAlertController(title: "Alert", message: "Please connect to Arduino UNO FiWi!", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        showAlert(withMessage: "Please connect to Arduino UNO FiWi!")
     }
     
     func appMovedToBackground() {
@@ -101,6 +100,7 @@ class ViewController: UIViewController {
         if isConnectedToArduino {
             isConnectedToArduino = false
             connectButton.setImage(UIImage(named: "Disconnected"), for: .normal)
+            showAlert(withMessage: "Lost connection to Arduino UNO FiWi!")
         }
     }
     
@@ -129,18 +129,21 @@ class ViewController: UIViewController {
     func connectToArduino() {
         guard let arduinoIP = UserDefaults.standard.string(forKey: "arduinoIP") else { showAlert(withMessage: "First set Arduino IP-address"); return }
         
-        if !isConnectedToArduino {
+        if !isConnectedToArduino && !connecting {
             activityIndicator.startAnimating()
+            connecting = true
             print("Try connect to Arduino")
             arduino.connect(to: arduinoIP) { connected in
                 if connected {
                     isConnectedToArduino = true
                     self.connectButton.setImage(UIImage(named: "Connected"), for: .normal)
                     self.invisibleScreenButton.removeFromSuperview()
+                    self.connecting = false
                 } else {
                     self.showAlert(withMessage: "Could not connect to Arduino")
                 }
                 self.activityIndicator.stopAnimating()
+                self.connecting = false
             }
         }
     }

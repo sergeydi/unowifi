@@ -40,16 +40,23 @@ class ArduinoConnect {
                 completeHandler(value == 1 ? true : false)
             } else {
                 completeHandler(nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "lostConnection"), object: nil)
             }
         }
     }
     
-    func setAnalog(pin: Int, toValue: Int, completeHandler:@escaping (Bool) -> Void ) {
-        print("Try set Analog pin")
-    }
-    
-    func getAnalog(pin: Int, completeHandler:@escaping (Bool, Int?) -> Void ) {
-        print("Try to get Analog pin")
+    func getAnalog(pin: Int, completeHandler:@escaping (Int?) -> Void ) {
+        guard let arduinoIP = UserDefaults.standard.string(forKey: "arduinoIP") else { return completeHandler(nil) }
+        let url = "http://\(arduinoIP)/arduino/analog/\(pin)"
+        Alamofire.request(url).responseString { response in
+            if let resultValue = response.result.value {
+                let value = Int(String(resultValue.components(separatedBy: " ")[4].characters.filter { !"\r\n".characters.contains($0) }))
+                completeHandler(value)
+            } else {
+                completeHandler(nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "lostConnection"), object: nil)
+            }
+        }
     }
     
 }

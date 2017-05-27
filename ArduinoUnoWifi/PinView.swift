@@ -108,9 +108,9 @@ class PinView: UIView {
         textField.layer.borderColor = UIColor(red: 0.0, green: 146.0/255.0, blue: 159.0/255.0, alpha: 1.0).cgColor
         textField.textAlignment = .center
         textField.font = UIFont(name: "HelveticaNeue-Bold", size: 16)
-        textField.text = "1234"
+        textField.text = "0"
         textField.addTarget(nil, action:#selector(showAnalogKeyboard), for:.editingDidBegin)
-        textField.addTarget(nil, action:#selector(setAnalogData), for:.editingDidEnd)
+        textField.addTarget(nil, action:#selector(setPwmData), for:.editingDidEnd)
         textField.keyboardType = UIKeyboardType.numberPad
         return textField
     }()
@@ -239,9 +239,18 @@ class PinView: UIView {
             }
         }
     }
-    func setAnalogData() {
+    
+    func getAnalogData() {
+        arduino?.getAnalog(pin: pinID!) { result in
+            if let result = result {
+                self.analogActionField.text = String(result)
+            }
+        }
+    }
+    
+    func setPwmData() {
         print("Try to set analog data")
-        arduino?.setAnalog(pin: pinID!, toValue: Int(analogActionField.text!)!) {_ in }
+        //arduino?.setAnalog(pin: pinID!, toValue: Int(analogActionField.text!)!) {_ in }
     }
     
     // Manage Constraints and PinView elements
@@ -264,6 +273,12 @@ class PinView: UIView {
             addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0(51)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":analogActionField]))
         }
         analogActionField.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        if pinState == .write {
+            digitalActionSwitch.addTarget(self, action: #selector(PinView.digitalActionSwitchChanged(_:)), for: UIControlEvents.valueChanged)
+        } else if pinState == .read {
+            dataReceiveTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.getAnalogData), userInfo: nil, repeats: true)
+        }
+        self.getAnalogData()
     }
     
     func setupDigitalActionSwitch() {
@@ -276,12 +291,7 @@ class PinView: UIView {
         } else if pinState == .read {
             dataReceiveTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.getDigitalData), userInfo: nil, repeats: true)
         }
-        // Get Current state of pine
-        arduino?.getDigital(pin: pinID!) { result in
-            if let result = result {
-                self.digitalActionSwitch.setOn(result, animated: true)
-            }
-        }
+        self.getDigitalData()
     }
     
     func setupRemoveActionButton() {
@@ -340,22 +350,28 @@ class PinView: UIView {
     }
     
     func setupReadWriteButtons() {
-        addSubview(readFromPinButton)
-        addSubview(writeToPinButton)
         
-        if pinSide == .right {
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":readFromPinButton]))
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":writeToPinButton, "v1":pinTitleLabel]))
+        addSubview(readFromPinButton)
+        addConstraint(NSLayoutConstraint(item: readFromPinButton, attribute: .width, relatedBy: .equal, toItem: readFromPinButton, attribute: .height, multiplier: 1/1, constant: 0))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":readFromPinButton]))
+        
+        if pinType != .analog {
+            addSubview(writeToPinButton)
+            if pinSide == .right {
+                addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":readFromPinButton]))
+                addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":writeToPinButton, "v1":pinTitleLabel]))
+            } else {
+                readFromPinButton.imageView?.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
+                writeToPinButton.imageView?.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
+                addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":readFromPinButton]))
+                addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel,"v1":writeToPinButton]))
+            }
+            addConstraint(NSLayoutConstraint(item: writeToPinButton, attribute: .width, relatedBy: .equal, toItem: writeToPinButton, attribute: .height, multiplier: 1/1, constant: 0))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":writeToPinButton]))
         } else {
             readFromPinButton.imageView?.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
-            writeToPinButton.imageView?.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":readFromPinButton]))
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel,"v1":writeToPinButton]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":pinTitleLabel,"v1":readFromPinButton]))
         }
-        addConstraint(NSLayoutConstraint(item: readFromPinButton, attribute: .width, relatedBy: .equal, toItem: readFromPinButton, attribute: .height, multiplier: 1/1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: writeToPinButton, attribute: .width, relatedBy: .equal, toItem: writeToPinButton, attribute: .height, multiplier: 1/1, constant: 0))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":readFromPinButton]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[v0]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":writeToPinButton]))
     }
     
     func hideReadWriteButtons() {
