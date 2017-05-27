@@ -91,14 +91,12 @@ class ConfigurationTableViewController: UITableViewController {
                 activityIndicator.startAnimating()
                 arduino.connect(to: ipAddressTextField.text!) { connected in
                     if connected {
-                        isConnectedToArduino = true
                         UserDefaults.standard.set(self.ipAddressTextField.text!, forKey: "arduinoIP")
                         UserDefaults.standard.set(self.autoConnectionSwitch.isOn, forKey: "autoLogin")
                         self.ipAddressTextField.resignFirstResponder()
                         self.connectButton.text = "Disconnect"
                         self.showAlert(withMessage: "Connection to Arduino succeeded")
                     } else {
-                        isConnectedToArduino = false
                         self.showAlert(withMessage: "Could not connect to Arduino")
                     }
                     self.activityIndicator.stopAnimating()

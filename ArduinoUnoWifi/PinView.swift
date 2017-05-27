@@ -154,7 +154,7 @@ class PinView: UIView {
         pinState = .read
         if pinType == .pwm {
             choseDigitalModeButton.isHidden = false
-            choseAnalogModeButton.isHidden = false
+            choseAnalogModeButton.isHidden = true
         } else {
             setupAction(self.pinType!)
         }
@@ -226,9 +226,11 @@ class PinView: UIView {
     
     // Pin actions
     func getDigitalData() {
-        arduino?.getDigital(pin: pinID!) { result in
-            if let result = result {
-                self.digitalActionSwitch.setOn(result, animated: true)
+        if isConnectedToArduino {
+            arduino?.getDigital(pin: pinID!) { result in
+                if let result = result {
+                    self.digitalActionSwitch.setOn(result, animated: true)
+                }
             }
         }
     }
@@ -241,16 +243,22 @@ class PinView: UIView {
     }
     
     func getAnalogData() {
-        arduino?.getAnalog(pin: pinID!) { result in
-            if let result = result {
-                self.analogActionField.text = String(result)
+        if isConnectedToArduino {
+            arduino?.getAnalog(pin: pinID!) { result in
+                if let result = result {
+                    self.analogActionField.text = String(result)
+                }
             }
         }
     }
     
     func setPwmData() {
         print("Try to set analog data")
-        //arduino?.setAnalog(pin: pinID!, toValue: Int(analogActionField.text!)!) {_ in }
+        arduino?.setPvmAnalog(pin: pinID!, toValue: Int(analogActionField.text!)!) { result in
+            if !result {
+                self.analogActionField.text = "Err"
+            }
+        }
     }
     
     // Manage Constraints and PinView elements
@@ -278,7 +286,9 @@ class PinView: UIView {
         } else if pinState == .read {
             dataReceiveTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.getAnalogData), userInfo: nil, repeats: true)
         }
-        self.getAnalogData()
+        if pinState == .read {
+            self.getAnalogData()
+        }
     }
     
     func setupDigitalActionSwitch() {
@@ -339,9 +349,8 @@ class PinView: UIView {
         addSubview(choseAnalogModeButton)
         addSubview(choseDigitalModeButton)
         
-        if pinSide == .right {
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":choseDigitalModeButton]))
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":choseAnalogModeButton, "v1":pinTitleLabel]))
+        if pinSide == .right {            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":choseAnalogModeButton]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v0][v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":choseDigitalModeButton, "v1":pinTitleLabel]))
         }
         addConstraint(NSLayoutConstraint(item: choseAnalogModeButton, attribute: .width, relatedBy: .equal, toItem: choseAnalogModeButton, attribute: .height, multiplier: 1/1, constant: 0))
         addConstraint(NSLayoutConstraint(item: choseDigitalModeButton, attribute: .width, relatedBy: .equal, toItem: choseDigitalModeButton, attribute: .height, multiplier: 1/1, constant: 0))

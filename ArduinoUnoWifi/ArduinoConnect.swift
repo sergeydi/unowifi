@@ -45,6 +45,19 @@ class ArduinoConnect {
         }
     }
     
+    func setPvmAnalog(pin: Int, toValue: Int, completeHandler:@escaping (Bool) -> Void ) {
+        guard let arduinoIP = UserDefaults.standard.string(forKey: "arduinoIP") else { return completeHandler(false) }
+        let url = "http://\(arduinoIP)/arduino/analog/\(pin)/\(toValue)"
+        Alamofire.request(url).responseData { response in
+            if response.result.isSuccess {
+                completeHandler(true)
+            } else {
+                completeHandler(false)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "lostConnection"), object: nil)
+            }
+        }
+    }
+    
     func getAnalog(pin: Int, completeHandler:@escaping (Int?) -> Void ) {
         guard let arduinoIP = UserDefaults.standard.string(forKey: "arduinoIP") else { return completeHandler(nil) }
         let url = "http://\(arduinoIP)/arduino/analog/\(pin)"
