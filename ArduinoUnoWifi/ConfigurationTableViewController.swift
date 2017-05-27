@@ -59,7 +59,7 @@ class ConfigurationTableViewController: UITableViewController {
         case 1:
             return 1
         case 2:
-            return 1
+            return 2
         default:
             return 0
         }
@@ -73,12 +73,14 @@ class ConfigurationTableViewController: UITableViewController {
             connectButtonAction()
             
         case 2:
-            guard MFMailComposeViewController.canSendMail() else { return }
-            let mailComposeVC = MFMailComposeViewController()
-            mailComposeVC.mailComposeDelegate = self
-            mailComposeVC.setToRecipients(["support@didanov.com"])
-            mailComposeVC.setSubject("UNO WiFi issue")
-            present(mailComposeVC, animated: true, completion: nil)
+            if indexPath.row == 1 {
+                guard MFMailComposeViewController.canSendMail() else { return }
+                let mailComposeVC = MFMailComposeViewController()
+                mailComposeVC.mailComposeDelegate = self
+                mailComposeVC.setToRecipients(["support@didanov.com"])
+                mailComposeVC.setSubject("UNO WiFi issue")
+                present(mailComposeVC, animated: true, completion: nil)
+            }
             
         default:
             return

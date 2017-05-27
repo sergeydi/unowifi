@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B17EE00A5560E9687E616D95 /* Pods_ArduinoUnoWifi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3624A5434F9FCC9A045C60A /* Pods_ArduinoUnoWifi.framework */; };
 		E23908DA1EA12D240031E4E8 /* CustomKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23908D91EA12D240031E4E8 /* CustomKeyboard.swift */; };
+		E240CF5F1ED9787C00233D4D /* GettingStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E240CF5E1ED9787C00233D4D /* GettingStartedViewController.swift */; };
 		E282A9201E98219100BFAC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E282A91F1E98219100BFAC57 /* AppDelegate.swift */; };
 		E282A9221E98219100BFAC57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E282A9211E98219100BFAC57 /* ViewController.swift */; };
 		E282A9251E98219100BFAC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E282A9231E98219100BFAC57 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		B3624A5434F9FCC9A045C60A /* Pods_ArduinoUnoWifi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArduinoUnoWifi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBFBBCA8946B4DEFBB63DBEF /* Pods-ArduinoUnoWifi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArduinoUnoWifi.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArduinoUnoWifi/Pods-ArduinoUnoWifi.release.xcconfig"; sourceTree = "<group>"; };
 		E23908D91EA12D240031E4E8 /* CustomKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKeyboard.swift; sourceTree = "<group>"; };
+		E240CF5E1ED9787C00233D4D /* GettingStartedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GettingStartedViewController.swift; sourceTree = "<group>"; };
 		E282A91C1E98219100BFAC57 /* ArduinoUnoWifi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArduinoUnoWifi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E282A91F1E98219100BFAC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E282A9211E98219100BFAC57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				E282A9211E98219100BFAC57 /* ViewController.swift */,
 				E2D374E01EAFC46F0008328B /* ConfigurationTableViewController.swift */,
 				E2D374E21EAFCEAF0008328B /* ArduinoConnect.swift */,
+				E240CF5E1ED9787C00233D4D /* GettingStartedViewController.swift */,
 				E282A9231E98219100BFAC57 /* Main.storyboard */,
 				E282A9311E98A13B00BFAC57 /* Suporting Files */,
 			);
@@ -237,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2D374E11EAFC46F0008328B /* ConfigurationTableViewController.swift in Sources */,
+				E240CF5F1ED9787C00233D4D /* GettingStartedViewController.swift in Sources */,
 				E2C2BC871EA2773500E317E6 /* Extensions.swift in Sources */,
 				E282A9221E98219100BFAC57 /* ViewController.swift in Sources */,
 				E282A9201E98219100BFAC57 /* AppDelegate.swift in Sources */,

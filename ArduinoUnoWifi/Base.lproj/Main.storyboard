@@ -368,8 +368,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact by E-mail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbr-Kf-xAa">
-                                                    <rect key="frame" x="119" y="11" width="137" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Getting Started" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbr-Kf-xAa">
+                                                    <rect key="frame" x="128.5" y="11" width="118" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.57268869879999995" blue="0.6240667701" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -378,6 +378,29 @@
                                             <constraints>
                                                 <constraint firstItem="Jbr-Kf-xAa" firstAttribute="centerY" secondItem="0GS-E1-unE" secondAttribute="centerY" id="5db-S7-o6O"/>
                                                 <constraint firstItem="Jbr-Kf-xAa" firstAttribute="centerX" secondItem="0GS-E1-unE" secondAttribute="centerX" id="RTw-8V-joo"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="4xm-tI-bPZ" kind="show" id="ZWe-NX-9TW"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="san-eh-Oft">
+                                        <rect key="frame" x="0.0" y="324" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="san-eh-Oft" id="Lcx-K2-ACa">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact by E-mail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0P-EO-lAm">
+                                                    <rect key="frame" x="119" y="11" width="137" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.57268869879999995" blue="0.6240667701" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="c0P-EO-lAm" firstAttribute="centerY" secondItem="Lcx-K2-ACa" secondAttribute="centerY" id="gXM-Yg-zGf"/>
+                                                <constraint firstItem="c0P-EO-lAm" firstAttribute="centerX" secondItem="Lcx-K2-ACa" secondAttribute="centerX" id="jyj-UI-SoV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -422,6 +445,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIp-XI-xFk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2814" y="139"/>
+        </scene>
+        <!--Getting Started View Controller-->
+        <scene sceneID="SaR-mS-5ez">
+            <objects>
+                <viewController id="4xm-tI-bPZ" customClass="GettingStartedViewController" customModule="ArduinoUnoWifi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3Fq-59-r56"/>
+                        <viewControllerLayoutGuide type="bottom" id="aBM-cG-vqw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HHJ-zq-ipx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dVN-P4-Drd">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dVN-P4-Drd" secondAttribute="trailing" id="aen-9Z-qKd"/>
+                            <constraint firstItem="dVN-P4-Drd" firstAttribute="bottom" secondItem="aBM-cG-vqw" secondAttribute="top" id="iIW-Fk-abA"/>
+                            <constraint firstItem="dVN-P4-Drd" firstAttribute="leading" secondItem="HHJ-zq-ipx" secondAttribute="leading" id="ipe-z7-lES"/>
+                            <constraint firstItem="dVN-P4-Drd" firstAttribute="top" secondItem="3Fq-59-r56" secondAttribute="bottom" id="x8Z-VF-D3g"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="gZj-ch-WRa"/>
+                    <connections>
+                        <outlet property="webView" destination="dVN-P4-Drd" id="BDt-WF-TaM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bLw-FJ-UvR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3752.8000000000002" y="138.98050974512745"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="D1N-pg-Sy8">

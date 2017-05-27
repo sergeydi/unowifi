@@ -65,11 +65,12 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appBecomeActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
         
+        pinsView.addSubview(invisibleScreenButton)
         invisibleScreenButton.frame = pinsView.bounds
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        pinsView.addSubview(invisibleScreenButton)
         if !isConnectedToArduino {
             connectButton.setImage(UIImage(named: "Disconnected"), for: .normal)
             if UserDefaults.standard.bool(forKey: "autoLogin") == true {
