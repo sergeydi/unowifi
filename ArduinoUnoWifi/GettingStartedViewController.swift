@@ -14,7 +14,7 @@ class GettingStartedViewController: UIViewController, UIWebViewDelegate {
     let activityIndicator = UIActivityIndicatorView()
 
     @IBOutlet weak var webView: UIWebView!
-    let gettingStartedURL = "https://unowifi.didanov.com"
+    let gettingStartedURL = "https://didanoff.wixsite.com/unowifi"
     
     override func viewDidLoad() {
         super.viewDidLoad()
